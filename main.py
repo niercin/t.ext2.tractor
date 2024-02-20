@@ -118,7 +118,7 @@ def process_pdf_file(pdf_path):
     # Open the pdf file
     pdf_plmb_result_obj = pdfplumber.open(pdf_path)
 
-    # We extract the pages from the PDF
+    # We extract the pages from the PDF 
     for page_no, page in enumerate(extract_pages(pdf_path)):
         page_obj = pdf_reader_result_obj.pages[page_no]
         # Find the examined page
@@ -126,7 +126,7 @@ def process_pdf_file(pdf_path):
         # Extract content
         content = extract_page_content(page, page_obj, page_tables, page_no)
 
-        with open(OUT_DIR / ("page_" + str(page_no) + ".txt"), 'w') as text_file:
+        with open(OUT_DIR / ("page_" + str(page_no).zfill(5) + ".txt"), 'w') as text_file:
             text_file.write(''.join(content[4]))
 
     # Closing the pdf file object
