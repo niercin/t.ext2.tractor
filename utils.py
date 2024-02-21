@@ -26,6 +26,10 @@ def get_filename_wo_ext(file_path):
 def get_file_ext(file_path):
     return Path(file_path).suffix
 
+# Given a path as a string, this one creates a path
+def create_path(path_as_str):
+    return Path(path_as_str)
+
 # Convert table into the appropriate format
 def convert_table_to_text(table):
     table_string = ''

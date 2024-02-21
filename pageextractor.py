@@ -117,9 +117,13 @@ def extract_page_content(page, page_obj, page_tables, page_no, out_dir):
                 
     return [page_text, line_format, text_from_images, text_from_tables, page_content]
 
-def process_pdf_file(pdf_path):
+def process_pdf_file(pdf_path, output_directory=''):
     # Output folder path
-    out_dir = utils.get_parent_directory(pdf_path) / utils.get_filename_wo_ext(pdf_path)
+    if output_directory == '':
+        out_dir = utils.get_parent_directory(pdf_path) / utils.get_filename_wo_ext(pdf_path)
+    else:
+        out_dir = utils.create_path(output_directory)
+        
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
 
@@ -143,3 +147,4 @@ def process_pdf_file(pdf_path):
 
     # Closing the pdf file object
     pdf_file_obj.close()
+    return out_dir
