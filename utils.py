@@ -1,5 +1,6 @@
-import os
+import pytesseract
 from pathlib import Path
+import os
 
 def remove_files_with_ext(directory, ext):
     for filename in os.listdir(directory):
@@ -26,9 +27,11 @@ def get_filename_wo_ext(file_path):
 def get_file_ext(file_path):
     return Path(file_path).suffix
 
-# Given a path as a string, this one creates a path
-def create_path(path_as_str):
-    return Path(path_as_str)
+# Create a function to read text from images
+def image_to_text(image_path):
+    # Extract the text from the image
+    text = pytesseract.image_to_string(str(image_path), lang='eng')
+    return text
 
 # Convert table into the appropriate format
 def convert_table_to_text(table):

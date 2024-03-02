@@ -7,9 +7,9 @@ from pdfminer.layout import LTTextContainer, LTRect, LTFigure
 import pdfplumber
 
 import os
+from pathlib import Path
 
 import pdfcontent
-import imgcontent
 import utils
 
 def extract_page_content(page, page_obj, page_tables, page_no, out_dir):
@@ -69,7 +69,7 @@ def extract_page_content(page, page_obj, page_tables, page_no, out_dir):
             # Convert the cropped pdf to an image
             pdfcontent.convert_first_page_to_png(tmp_pdf_file_path, tmp_img_file_path)
             # Extract the text from the image
-            image_text = imgcontent.image_to_text(tmp_img_file_path)
+            image_text = utils.image_to_text(tmp_img_file_path)
             text_from_images.append(image_text)
             page_content.append(image_text)
             # Add a placeholder in the text and format lists
@@ -122,7 +122,7 @@ def process_pdf_file(pdf_path, output_directory=''):
     if output_directory == '':
         out_dir = utils.get_parent_directory(pdf_path) / utils.get_filename_wo_ext(pdf_path)
     else:
-        out_dir = utils.create_path(output_directory)
+        out_dir = Path(output_directory)
         
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
